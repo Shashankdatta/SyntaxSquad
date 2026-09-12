@@ -4,26 +4,34 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        fintech: {
+          50: '#F0F7FF',
+          100: '#E0EFFE',
+          500: '#3B82F6',
+          600: '#2563EB',
+          700: '#1D4ED8',
+          800: '#1E40AF',
+          900: '#1E3A8A',
+        },
         navy: {
-          950: '#060B18',
-          900: '#0A1128',
-          850: '#0F1A36',
-          800: '#142144',
-          750: '#1A2C5B',
-          700: '#213770',
-          600: '#2C4994',
+          950: '#0B132B',
+          900: '#1C2541',
+          850: '#263152',
+          800: '#3A506B',
+          750: '#475569',
+          700: '#64748B',
+          600: '#94A3B8',
         },
         shield: {
-          cyan: '#00F2FE',
-          blue: '#4FACFE',
-          emerald: '#10B981',
-          amber: '#F59E0B',
-          crimson: '#EF4444',
-          violet: '#8B5CF6',
+          cyan: '#0284C7',
+          blue: '#2563EB',
+          emerald: '#059669',
+          amber: '#D97706',
+          crimson: '#E11D48',
+          violet: '#7C3AED',
         }
       },
       fontFamily: {
@@ -31,15 +39,10 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       boxShadow: {
-        'glow-cyan': '0 0 20px -5px rgba(0, 242, 254, 0.3)',
-        'glow-emerald': '0 0 20px -5px rgba(16, 185, 129, 0.3)',
-        'glow-crimson': '0 0 20px -5px rgba(239, 68, 68, 0.3)',
-        'glow-amber': '0 0 20px -5px rgba(245, 158, 11, 0.3)',
+        'fintech': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+        'fintech-card': '0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.08)',
+        'fintech-card-hover': '0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.06)',
       },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ping-slow': 'ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
-      }
     },
   },
   plugins: [],

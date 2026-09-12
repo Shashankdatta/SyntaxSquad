@@ -1,25 +1,25 @@
 import React from 'react';
 import {
-  LayoutDashboard,
-  CreditCard,
-  Network,
-  ShieldAlert,
-  Layers,
+  Home,
+  Send,
+  Receipt,
+  ShieldCheck,
+  WifiOff,
+  RefreshCw,
+  Clock,
+  Shield,
   CheckCircle2,
-  FileText,
-  Server,
-  Cpu,
 } from 'lucide-react';
 import { usePayShield } from '../../context/PayShieldContext';
 
 export type NavTab =
-  | 'overview'
-  | 'simulator'
-  | 'network'
-  | 'fraud'
-  | 'queue'
-  | 'reconciliation'
-  | 'audit';
+  | 'home'
+  | 'pay'
+  | 'transactions'
+  | 'security'
+  | 'offline'
+  | 'settlement'
+  | 'activity';
 
 interface SidebarProps {
   activeTab: NavTab;
@@ -41,57 +41,49 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navItems = [
     {
-      id: 'overview' as NavTab,
-      label: 'Overview Dashboard',
-      shortLabel: 'Overview',
-      icon: LayoutDashboard,
+      id: 'home' as NavTab,
+      label: 'Home',
+      icon: Home,
       badge: null,
     },
     {
-      id: 'simulator' as NavTab,
-      label: 'Payment Simulator',
-      shortLabel: 'Simulator',
-      icon: CreditCard,
+      id: 'pay' as NavTab,
+      label: 'Pay',
+      icon: Send,
       badge: null,
     },
     {
-      id: 'network' as NavTab,
-      label: 'Network Control',
-      shortLabel: 'Network',
-      icon: Network,
-      badge: networkStatus === 'PARTITIONED' ? 'PARTITION' : networkStatus === 'DEGRADED' ? 'DEGRADED' : null,
-      badgeColor: networkStatus === 'PARTITIONED' ? 'bg-rose-950 text-rose-300 border-rose-800' : 'bg-amber-950 text-amber-300 border-amber-800',
+      id: 'transactions' as NavTab,
+      label: 'Transactions',
+      icon: Receipt,
+      badge: null,
     },
     {
-      id: 'fraud' as NavTab,
-      label: 'Fraud Monitoring',
-      shortLabel: 'Fraud Rules',
-      icon: ShieldAlert,
+      id: 'security' as NavTab,
+      label: 'Payment Security',
+      icon: ShieldCheck,
       badge: criticalAuditCount > 0 ? `${criticalAuditCount} Blocks` : null,
-      badgeColor: 'bg-rose-950 text-rose-300 border-rose-800',
+      badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
     },
     {
-      id: 'queue' as NavTab,
-      label: 'Offline Transaction Queue',
-      shortLabel: 'Offline Queue',
-      icon: Layers,
+      id: 'offline' as NavTab,
+      label: 'Offline Payments',
+      icon: WifiOff,
       badge: pendingQueueCount > 0 ? `${pendingQueueCount}` : null,
-      badgeColor: 'bg-amber-950 text-amber-300 border-amber-800 animate-pulse',
+      badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
     },
     {
-      id: 'reconciliation' as NavTab,
-      label: 'Reconciliation Center',
-      shortLabel: 'Reconciliation',
-      icon: CheckCircle2,
+      id: 'settlement' as NavTab,
+      label: 'Settlement & Reconciliation',
+      icon: RefreshCw,
+      badge: pendingQueueCount > 0 ? 'Pending' : null,
+      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    },
+    {
+      id: 'activity' as NavTab,
+      label: 'Activity Log',
+      icon: Clock,
       badge: null,
-    },
-    {
-      id: 'audit' as NavTab,
-      label: 'Audit Log',
-      shortLabel: 'Audit Log',
-      icon: FileText,
-      badge: `${auditLogs.length}`,
-      badgeColor: 'bg-navy-800 text-slate-300 border-navy-700',
     },
   ];
 
@@ -100,21 +92,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile Backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed lg:static top-0 bottom-0 left-0 z-50 w-64 bg-navy-900 border-r border-navy-750 flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 ease-in-out shadow-xs ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        {/* Sidebar Nav Items */}
+        {/* Navigation Items */}
         <div className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           <div className="px-3 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            Operations & Control
+            Payment Navigation
           </div>
 
           {navItems.map(item => {
@@ -127,16 +119,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   setActiveTab(item.id);
                   setMobileOpen(false);
                 }}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-500/15 to-blue-500/10 text-shield-cyan border-l-2 border-shield-cyan font-semibold shadow-inner'
-                    : 'text-slate-300 hover:text-white hover:bg-navy-850'
+                    ? 'bg-blue-50 text-blue-700 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <Icon
                     className={`h-4 w-4 transition-colors ${
-                      isActive ? 'text-shield-cyan' : 'text-slate-400 group-hover:text-slate-200'
+                      isActive ? 'text-blue-600' : 'text-slate-400'
                     }`}
                   />
                   <span>{item.label}</span>
@@ -144,8 +136,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                 {item.badge && (
                   <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono font-medium border ${
-                      item.badgeColor || 'bg-navy-800 text-slate-300 border-navy-700'
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-medium border ${
+                      item.badgeColor || 'bg-slate-100 text-slate-600 border-slate-200'
                     }`}
                   >
                     {item.badge}
@@ -156,49 +148,40 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </div>
 
-        {/* Edge Engine Hardware Telemetry Card */}
-        <div className="p-3 m-3 rounded-xl bg-navy-950/80 border border-navy-800 text-xs">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="flex items-center gap-1.5 font-semibold text-[11px] text-slate-300">
-              <Cpu className="h-3.5 w-3.5 text-shield-cyan" />
-              EDGE NODE STATUS
+        {/* Protection & Partition Status Card */}
+        <div className="p-3 m-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+          <div className="flex items-center justify-between text-slate-700 mb-2">
+            <span className="flex items-center gap-1.5 font-semibold text-[11px] text-slate-800">
+              <Shield className="h-3.5 w-3.5 text-blue-600" />
+              PROTECTION ACTIVE
             </span>
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping-slow" />
+            <span className={`h-2 w-2 rounded-full ${networkStatus === 'ONLINE' ? 'bg-emerald-500' : 'bg-amber-500'}`} />
           </div>
 
-          <div className="space-y-1 text-[11px] text-slate-400 font-mono">
+          <div className="space-y-1 text-[11px] text-slate-500">
             <div className="flex justify-between">
-              <span>Security Suite:</span>
-              <span className="text-slate-200">SHA256-HMAC</span>
+              <span>Inline Screening:</span>
+              <span className="text-emerald-700 font-medium">Active (7 Rules)</span>
             </div>
             <div className="flex justify-between">
-              <span>Idempotency:</span>
-              <span className="text-emerald-400">Deterministic</span>
+              <span>Partition Tolerance:</span>
+              <span className="text-blue-700 font-medium">₹2,000 Quota</span>
             </div>
             <div className="flex justify-between">
-              <span>Local Store:</span>
-              <span className="text-cyan-300">Encrypted Queue</span>
+              <span>Reconciliation:</span>
+              <span className="text-slate-700 font-medium">Deterministic</span>
             </div>
-          </div>
-
-          <div className="mt-2.5 pt-2 border-t border-navy-850 flex items-center justify-between text-[10px]">
-            <span className="text-slate-400">Node Architecture</span>
-            <span className="text-slate-300 font-mono">ARM64 Enclave</span>
           </div>
         </div>
 
-        {/* User / Workspace Footer */}
-        <div className="p-3 border-t border-navy-750 flex items-center justify-between bg-navy-950/50">
-          <div className="flex items-center gap-2.5">
-            <div className="h-7 w-7 rounded-full bg-cyan-950 border border-cyan-800 flex items-center justify-center text-[11px] font-bold text-shield-cyan">
-              PS
-            </div>
-            <div>
-              <div className="text-xs font-semibold text-slate-200">Hackathon Node</div>
-              <div className="text-[10px] text-slate-400 font-mono">TERM-CLUSTER-01</div>
-            </div>
+        {/* Workspace Footer Disclaimer */}
+        <div className="p-3 border-t border-slate-200 bg-white">
+          <div className="text-[11px] text-slate-500 font-medium leading-tight">
+            Simulation Prototype
           </div>
-          <Server className="h-4 w-4 text-slate-400" />
+          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">
+            No real money transfers
+          </div>
         </div>
       </aside>
     </>
